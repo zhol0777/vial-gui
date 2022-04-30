@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 import struct
 import json
-import lzma
+# import lzma
 from collections import OrderedDict
 
 from keycodes import RESET_KEYCODE, Keycode

@@ -3,7 +3,17 @@
 import sys
 
 
-if sys.platform.startswith("linux"):
+if sys.platform == "emscripten":
+
+    import js
+
+    class hid:
+
+        @staticmethod
+        def enumerate():
+            return js.hid_enumerate()
+
+elif sys.platform.startswith("linux"):
     import hidraw as hid
 else:
     import hid
