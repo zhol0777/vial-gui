@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QWidget, QComboBox, QToolButton, QHBoxLayout, QVBoxL
 
 import os
 import sys
-from urllib.request import urlopen
+# from urllib.request import urlopen
 
 from about_keyboard import AboutKeyboard
 from autorefresh.autorefresh import Autorefresh

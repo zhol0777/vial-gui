@@ -16,6 +16,7 @@ from util import init_logger
 
 
 def show_exception_box(log_msg):
+    print(log_msg)
     if QtWidgets.QApplication.instance() is not None:
         errorbox = QtWidgets.QMessageBox()
         errorbox.setText(log_msg)
@@ -48,8 +49,18 @@ class UncaughtHook(QtCore.QObject):
         sys._excepthook(exc_type, exc_value, exc_traceback)
 
 
+def web_get_resource(name):
+    print("request resource {}".format(name))
+    return "/usr/local/" + name
+
+
 def main(app):
+    app.get_resource = web_get_resource
+    print("setup hook")
     qt_exception_hook = UncaughtHook()
+    print("create window")
     window = MainWindow(app)
+    print("show window")
     window.show()
+    print("all done!")
     app.processEvents()

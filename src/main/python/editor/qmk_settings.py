@@ -235,11 +235,11 @@ class QmkSettings(BasicEditor):
     @classmethod
     def initialize(cls, appctx):
         cls.qsid_fields = defaultdict(list)
-        # with open(appctx.get_resource("qmk_settings.json"), "r") as inf:
-        #     cls.settings_defs = json.load(inf)
-        # for tab in cls.settings_defs["tabs"]:
-        #     for field in tab["fields"]:
-        #         cls.qsid_fields[field["qsid"]].append(field)
+        with open(appctx.get_resource("qmk_settings.json"), "r") as inf:
+            cls.settings_defs = json.load(inf)
+        for tab in cls.settings_defs["tabs"]:
+            for field in tab["fields"]:
+                cls.qsid_fields[field["qsid"]].append(field)
 
     @classmethod
     def is_qsid_supported(cls, qsid):
