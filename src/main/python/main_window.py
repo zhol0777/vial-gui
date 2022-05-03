@@ -2,7 +2,7 @@
 import logging
 from json import JSONDecodeError
 
-from PyQt5.QtCore import Qt, QSettings, QStandardPaths
+from PyQt5.QtCore import Qt, QSettings, QStandardPaths, QTimer
 from PyQt5.QtWidgets import QWidget, QComboBox, QToolButton, QHBoxLayout, QVBoxLayout, QMainWindow, QAction, qApp, \
     QFileDialog, QDialog, QTabWidget, QActionGroup, QMessageBox, QLabel
 
@@ -132,6 +132,10 @@ class MainWindow(QMainWindow):
 
         # make sure initial state is valid
         self.on_click_refresh()
+
+        if sys.platform == "emscripten":
+            import vialglue
+            QTimer.singleShot(100, vialglue.notify_ready)
 
     def init_menu(self):
         layout_load_act = QAction(tr("MenuFile", "Load saved layout..."), self)

@@ -16,11 +16,13 @@ from util import init_logger
 
 
 def show_exception_box(log_msg):
-    print(log_msg)
     if QtWidgets.QApplication.instance() is not None:
+        global errorbox
+
         errorbox = QtWidgets.QMessageBox()
         errorbox.setText(log_msg)
-        errorbox.exec_()
+        errorbox.setModal(True)
+        errorbox.show()
 
 
 class UncaughtHook(QtCore.QObject):
@@ -50,17 +52,12 @@ class UncaughtHook(QtCore.QObject):
 
 
 def web_get_resource(name):
-    print("request resource {}".format(name))
     return "/usr/local/" + name
 
 
 def main(app):
     app.get_resource = web_get_resource
-    print("setup hook")
     qt_exception_hook = UncaughtHook()
-    print("create window")
     window = MainWindow(app)
-    print("show window")
     window.show()
-    print("all done!")
     app.processEvents()
