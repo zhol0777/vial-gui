@@ -1,6 +1,6 @@
 import ast
 
-# import simpleeval
+import simpleeval
 import operator
 
 from keycodes import KEYCODES_SPECIAL, KEYCODES_BASIC, KEYCODES_SHIFTED, KEYCODES_ISO, KEYCODES_BACKLIGHT, \
@@ -111,15 +111,14 @@ functions = {
 class AnyKeycode:
 
     def __init__(self):
-        pass
-        # self.ops = simpleeval.DEFAULT_OPERATORS.copy()
-        # self.ops.update({
-        #     ast.BitOr: operator.or_,
-        #     ast.BitXor: operator.xor,
-        #     ast.BitAnd: operator.and_,
-        # })
-        # self.names = dict()
-        # self.prepare_names()
+        self.ops = simpleeval.DEFAULT_OPERATORS.copy()
+        self.ops.update({
+            ast.BitOr: operator.or_,
+            ast.BitXor: operator.xor,
+            ast.BitAnd: operator.and_,
+        })
+        self.names = dict()
+        self.prepare_names()
 
     def prepare_names(self):
         for kc in KEYCODES_SPECIAL + KEYCODES_BASIC + KEYCODES_SHIFTED + KEYCODES_ISO + KEYCODES_BACKLIGHT + \
@@ -140,4 +139,4 @@ class AnyKeycode:
         })
 
     def decode(self, s):
-        return int(s) #simpleeval.simple_eval(s, names=self.names, functions=functions, operators=self.ops)
+        return simpleeval.simple_eval(s, names=self.names, functions=functions, operators=self.ops)
