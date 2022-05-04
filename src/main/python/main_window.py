@@ -8,7 +8,6 @@ from PyQt5.QtWidgets import QWidget, QComboBox, QToolButton, QHBoxLayout, QVBoxL
 
 import os
 import sys
-# from urllib.request import urlopen
 
 from about_keyboard import AboutKeyboard
 from autorefresh.autorefresh import Autorefresh
@@ -311,6 +310,8 @@ class MainWindow(QMainWindow):
             self.tabs.addTab(c, tr("MainWindow", lbl))
 
     def load_via_stack_json(self):
+        from urllib.request import urlopen
+
         with urlopen("https://github.com/vial-kb/via-keymap-precompiled/raw/main/via_keyboard_stack.json") as resp:
             data = resp.read()
         self.autorefresh.load_via_stack(data)
