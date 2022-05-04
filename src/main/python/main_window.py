@@ -405,7 +405,9 @@ class MainWindow(QMainWindow):
         )
 
     def about_keyboard(self):
-        AboutKeyboard(self.autorefresh.current_device).exec_()
+        self.about_dialog = AboutKeyboard(self.autorefresh.current_device)
+        self.about_dialog.setModal(True)
+        self.about_dialog.show()
 
     def closeEvent(self, e):
         self.settings.setValue("size", self.size())
