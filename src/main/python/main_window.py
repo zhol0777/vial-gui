@@ -399,14 +399,20 @@ class MainWindow(QMainWindow):
         self.current_tab = new_tab
 
     def about_vial(self):
-        QMessageBox.about(
-            self,
-            "About Vial",
-            'Vial {}<br><br>'
-            'Licensed under the terms of the<br>GNU General Public License (version 2 or later)<br><br>'
-            '<a href="https://get.vial.today/">https://get.vial.today/</a>'
-            .format(self.appctx.build_settings["version"])
-        )
+        title = "About Vial"
+        text = 'Vial {}<br><br>' \
+               'Licensed under the terms of the<br>GNU General Public License (version 2 or later)<br><br>' \
+               '<a href="https://get.vial.today/">https://get.vial.today/</a>' \
+               .format(self.appctx.build_settings["version"])
+
+        if sys.platform == "emscripten":
+            self.msg_about = QMessageBox()
+            self.msg_about.setWindowTitle(title)
+            self.msg_about.setText(text)
+            self.msg_about.setModal(True)
+            self.msg_about.show()
+        else:
+            QMessageBox.about(self, title, text)
 
     def about_keyboard(self):
         self.about_dialog = AboutKeyboard(self.autorefresh.current_device)

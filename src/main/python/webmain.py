@@ -7,6 +7,7 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import pyqtSignal
 
 import sys
+import json
 
 from main_window import MainWindow
 
@@ -57,6 +58,8 @@ def web_get_resource(name):
 
 def main(app):
     app.get_resource = web_get_resource
+    with open(app.get_resource("build_settings.json"), "r") as inf:
+        app.build_settings = json.loads(inf.read())
     qt_exception_hook = UncaughtHook()
     window = MainWindow(app)
     window.show()
