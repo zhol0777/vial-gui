@@ -159,15 +159,16 @@ class MainWindow(QMainWindow):
         exit_act.setShortcut("Ctrl+Q")
         exit_act.triggered.connect(qApp.exit)
 
-        file_menu = self.menuBar().addMenu(tr("Menu", "File"))
-        file_menu.addAction(layout_load_act)
-        file_menu.addAction(layout_save_act)
-        file_menu.addSeparator()
-        file_menu.addAction(sideload_json_act)
-        file_menu.addAction(download_via_stack_act)
-        file_menu.addAction(load_dummy_act)
-        file_menu.addSeparator()
-        file_menu.addAction(exit_act)
+        if sys.platform != "emscripten":
+            file_menu = self.menuBar().addMenu(tr("Menu", "File"))
+            file_menu.addAction(layout_load_act)
+            file_menu.addAction(layout_save_act)
+            file_menu.addSeparator()
+            file_menu.addAction(sideload_json_act)
+            file_menu.addAction(download_via_stack_act)
+            file_menu.addAction(load_dummy_act)
+            file_menu.addSeparator()
+            file_menu.addAction(exit_act)
 
         keyboard_unlock_act = QAction(tr("MenuSecurity", "Unlock"), self)
         keyboard_unlock_act.triggered.connect(self.unlock_keyboard)
@@ -200,19 +201,20 @@ class MainWindow(QMainWindow):
         self.security_menu.addSeparator()
         self.security_menu.addAction(keyboard_reset_act)
 
-        self.theme_menu = self.menuBar().addMenu(tr("Menu", "Theme"))
-        theme_group = QActionGroup(self)
-        selected_theme = self.get_theme()
-        for name, _ in [("System", None)] + themes.themes:
-            act = QAction(tr("MenuTheme", name), self)
-            act.triggered.connect(lambda x,name=name: self.set_theme(name))
-            act.setCheckable(True)
-            act.setChecked(selected_theme == name)
-            theme_group.addAction(act)
-            self.theme_menu.addAction(act)
-        # check "System" if nothing else is selected
-        if theme_group.checkedAction() is None:
-            theme_group.actions()[0].setChecked(True)
+        if sys.platform != "emscripten":
+            self.theme_menu = self.menuBar().addMenu(tr("Menu", "Theme"))
+            theme_group = QActionGroup(self)
+            selected_theme = self.get_theme()
+            for name, _ in [("System", None)] + themes.themes:
+                act = QAction(tr("MenuTheme", name), self)
+                act.triggered.connect(lambda x,name=name: self.set_theme(name))
+                act.setCheckable(True)
+                act.setChecked(selected_theme == name)
+                theme_group.addAction(act)
+                self.theme_menu.addAction(act)
+            # check "System" if nothing else is selected
+            if theme_group.checkedAction() is None:
+                theme_group.actions()[0].setChecked(True)
 
         about_vial_act = QAction(tr("MenuAbout", "About Vial..."), self)
         about_vial_act.triggered.connect(self.about_vial)
