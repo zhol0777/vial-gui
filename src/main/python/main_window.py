@@ -60,7 +60,8 @@ class MainWindow(QMainWindow):
 
         layout_combobox = QHBoxLayout()
         layout_combobox.addWidget(self.combobox_devices)
-        layout_combobox.addWidget(self.btn_refresh_devices)
+        if sys.platform != "emscripten":
+            layout_combobox.addWidget(self.btn_refresh_devices)
 
         self.layout_editor = LayoutEditor()
         self.keymap_editor = KeymapEditor(self.layout_editor)
