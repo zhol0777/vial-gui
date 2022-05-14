@@ -124,6 +124,26 @@ themes = [
         (QPalette.Disabled, QPalette.Text): "#f8f8f2",
         (QPalette.Disabled, QPalette.Light): "#8be9fd",
     }),
+    ("Historic", {
+        QPalette.Window: "#455460",
+        QPalette.WindowText: "#e1ba44",
+        QPalette.Base: "#455460",
+        QPalette.AlternateBase: "#212224",
+        QPalette.ToolTipBase: "#212224",
+        QPalette.ToolTipText: "#e1ba44",
+        QPalette.Text: "#e1ba44",
+        QPalette.Button: "#212224",
+        QPalette.ButtonText: "#e1ba44",
+        QPalette.BrightText: "#ba1312",
+        QPalette.Link: "#ba1312",
+        QPalette.Highlight: "#ba1312",
+        QPalette.HighlightedText: "#dedddb",
+        (QPalette.Active, QPalette.Button): "#212224",
+        (QPalette.Disabled, QPalette.ButtonText): "#e1ba44",
+        (QPalette.Disabled, QPalette.WindowText): "#e1ba44",
+        (QPalette.Disabled, QPalette.Text): "#e1ba44",
+        (QPalette.Disabled, QPalette.Light): "#ba1312",
+    }),
 ]
 
 palettes = dict()
